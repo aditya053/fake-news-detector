@@ -14,11 +14,11 @@ An end-to-end **Fake News Detection** web application that classifies news artic
 
 ## 🚀 Live Demo
 
-**Frontend:** https://<your-streamlit-render-url>
+**Frontend:** https://fake-news-detector-hutl.onrender.com
 
-**Backend API:** https://<your-fastapi-render-url>
+**Backend API:** https://fake-news-api-ise0.onrender.com
 
-**API Documentation:** https://<your-fastapi-render-url>/docs
+**API Documentation:** https://fake-news-api-ise0.onrender.com/docs
 
 ---
 
