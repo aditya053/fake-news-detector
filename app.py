@@ -54,7 +54,10 @@ if st.button("🔍 Predict"):
         st.warning("Please enter a news article.")
         st.stop()
 
-    prediction, confidence = predict_news(news)
+    with st.spinner(
+        "Analyzing the article... The first request may take up to a minute if the backend is starting."
+    ):
+        prediction, confidence = predict_news(news)
 
     st.divider()
 
