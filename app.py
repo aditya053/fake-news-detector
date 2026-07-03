@@ -82,9 +82,9 @@ if st.button("🔍 Predict"):
 
         if value < 20:
             message = "🚀 Starting backend..."
-        elif value < 30:
-            message = "🔄 Waking up server..."
         elif value < 40:
+            message = "🔄 Waking up server..."
+        elif value < 50:
             message = "🧠 Analyzing article..."
         else:
             message = "⏳ Preparing results..."
