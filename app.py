@@ -13,7 +13,7 @@ st.set_page_config(
 # Send the news article to the FastAPI backend and get the prediction
 def predict_news(text):
 
-    try:
+    # try:
         response = requests.post(
             API_URL,
             json={"text": text},
@@ -26,13 +26,13 @@ def predict_news(text):
 
         return result["prediction"], result["confidence"]
 
-    except requests.exceptions.RequestException:
-        st.error(
-            "The request timed out. " \
-            "The backend may be starting after being idle. " \
-            "Please wait a moment and try again."
-        )
-        st.stop()
+    # except requests.exceptions.RequestException:
+    #     st.error(
+    #         "The request timed out. " \
+    #         "The backend may be starting after being idle. " \
+    #         "Please wait a moment and try again."
+    #     )
+    #     st.stop()
 
 
 # Application title
