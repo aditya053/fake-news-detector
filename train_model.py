@@ -11,10 +11,23 @@ def load_data(path):
     """Load and prepare the dataset."""
 
     df = pd.read_csv(path)
+
+    df = df.drop(columns=["Unnamed: 0"], errors="ignore")
     df = df.fillna("")
 
     df["content"] = df["title"] + " " + df["text"]
-    df["content"] = df["content"].str.replace(r"\s+", " ", regex=True).str.strip()
+
+    df["content"] = df["content"].str.replace(
+        r"http\S+|www\S+", "", regex=True
+    )
+
+    df["content"] = df["content"].str.replace(
+        r"[^\w\s]", "", regex=True
+    )
+
+    df["content"] = df["content"].str.replace(
+        r"\s+", " ", regex=True
+    ).str.strip()
 
     df = df.drop_duplicates(subset=["content"])
 
@@ -28,10 +41,11 @@ def prepare_features(df):
         lowercase=True,
         stop_words="english",
         ngram_range=(1, 2),
-        max_features=200000,
+        max_features=100000,
         min_df=2,
         max_df=0.95,
         sublinear_tf=True,
+        strip_accents="unicode"
     )
 
     X = vectorizer.fit_transform(df["content"])

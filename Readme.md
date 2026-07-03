@@ -24,13 +24,13 @@ An end-to-end **Fake News Detection** web application that classifies news artic
 
 ## ✨ Features
 
-- Detects whether a news article is **Real** or **Fake**
+- Classifies news articles as **Real** or **Fake**
 - Displays prediction confidence
-- Interactive web interface built with Streamlit
+- Automatic text preprocessing
 - REST API powered by FastAPI
-- Dockerized backend for easy deployment
-- Automatic text preprocessing before inference
-- Responsive and user-friendly interface
+- Interactive Streamlit web interface
+- Dockerized backend for deployment
+- Responsive and user-friendly UI
 
 ---
 
@@ -61,12 +61,14 @@ An end-to-end **Fake News Detection** web application that classifies news artic
 
 ## 🧠 Machine Learning Pipeline
 
-1. News article is submitted through the Streamlit interface.
+1. User submits a news article through the Streamlit interface.
 2. Streamlit sends the article to the FastAPI backend.
-3. The backend preprocesses the input text.
+3. The backend preprocesses the text by removing URLs, punctuation, and extra whitespace.
 4. The cleaned text is transformed using the trained TF-IDF vectorizer.
-5. The LinearSVC model predicts whether the news is Real or Fake.
+5. The LinearSVC model predicts whether the article is **Real** or **Fake**.
 6. The prediction and confidence score are returned to the frontend.
+
+> **Note:** LinearSVC does not natively produce probabilities. The displayed confidence score is estimated from the model's decision function using a sigmoid transformation.
 
 ---
 
@@ -151,8 +153,6 @@ Open:
 http://127.0.0.1:8000/docs
 ```
 
----
-
 ### Start the Streamlit frontend
 
 ```bash
@@ -177,15 +177,39 @@ docker run -p 8000:8000 fake-news-api
 
 ---
 
+## 📡 API Endpoint
+
+**POST** `/predict`
+
+### Request
+
+```json
+{
+  "text": "News article goes here..."
+}
+```
+
+### Response
+
+```json
+{
+  "prediction": "Real",
+  "confidence": 98.4
+}
+```
+
+---
+
 ## 📊 Model Details
 
 | Item | Value |
 |------|------|
 | Algorithm | Linear Support Vector Machine (LinearSVC) |
 | Feature Extraction | TF-IDF |
+| Text Preprocessing | URL removal, punctuation removal, whitespace normalization |
 | N-grams | Unigrams + Bigrams |
-| Dataset | WELFake Dataset |
-| Training Accuracy | **97.82%** |
+| Dataset | WELFake Dataset (~72,000 news articles) |
+| Test Accuracy | **98.0%** |
 
 ---
 
@@ -206,11 +230,15 @@ docker run -p 8000:8000 fake-news-api
 
 ## 🔮 Future Improvements
 
-- Replace TF-IDF with Transformer-based embeddings
+- Replace TF-IDF with transformer-based embeddings
 - Add multilingual fake news detection
-- Explain predictions using SHAP
 - Improve confidence calibration
+- Explain predictions using SHAP
 - Add batch prediction support
-- CI/CD pipeline with GitHub Actions
+- Implement CI/CD using GitHub Actions
 
 ---
+
+## 📄 License
+
+This project is licensed under the MIT License.

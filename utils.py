@@ -1,8 +1,7 @@
 import re
 
 def preprocess(text):
-
-    text = re.sub(r"\s+", " ", text)
-    text = text.strip()
-
+    text = re.sub(r"http\S+|www\S+", "", text)
+    text = re.sub(r"[^\w\s]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
     return text
