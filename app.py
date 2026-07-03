@@ -83,16 +83,16 @@ if st.button("🔍 Predict"):
         if value < 20:
             message = "🚀 Starting backend..."
         elif value < 30:
-            message = "📦 Loading model..."
+            message = "🔄 Waking up server..."
         elif value < 40:
             message = "🧠 Analyzing article..."
         else:
-            message = "⏳ Finalizing prediction..."
+            message = "⏳ Preparing results..."
 
         value = min(value + 1, 95)
         progress.progress(value, text=message)
 
-        time.sleep(0.4)
+        time.sleep(0.1)
 
     thread.join()
 
